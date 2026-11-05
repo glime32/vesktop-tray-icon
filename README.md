@@ -1,29 +1,31 @@
-# vesktop-tray-icon
+<p align="center"><img src="docs/banner-vesktop-tray-icon.png" alt="vesktop-tray-icon" width="100%"></p>
 
-Met dans la zone de notification de [Vesktop](https://github.com/Vencord/Vesktop) la même icône que celle choisie dans le menu de KDE.
+<p align="center"><img src="https://img.shields.io/badge/platform-Linux%20·%20KDE%20Plasma-000000?style=flat-square" alt="platform"> <img src="https://img.shields.io/badge/python-3-3776ab?style=flat-square" alt="python"> <img src="https://img.shields.io/badge/license-MIT-610089?style=flat-square" alt="license"></p>
 
-Quand on change l'icône d'une appli avec *clic droit → Modifier l'application* dans KDE, ça ne change que le lanceur : Vesktop garde son icône dans le tray. Vesktop a pourtant une option peu connue, il charge les fichiers `tray` et `trayUnread` du dossier `userAssets/` de sa config. Ce script les remplit tout seul.
+<p align="center"><a href="README.fr.md">🇫🇷 Version française</a></p>
 
-## Ce qu'il fait
+**Use your custom KDE icon for [Vesktop](https://github.com/Vencord/Vesktop)'s tray icon too.**
 
-1. retrouve le raccourci Vesktop modifié dans `~/.local/share/applications` ;
-2. résout le nom de l'icône en vrai fichier, en suivant le thème d'icônes KDE et ses `Inherits=` (comme le fait KDE) ;
-3. génère deux PNG 256×256 : l'icône normale, et la même avec une pastille rouge pour les messages non lus ;
-4. les copie dans `~/.config/vesktop/userAssets/` (et dans le dossier Flatpak s'il existe) ;
-5. relance Vesktop pour appliquer.
+When you change an app's icon with *right-click → Edit Application* in KDE, only the launcher changes — Vesktop keeps its own tray icon. Vesktop has a little-known feature though: it loads `tray` and `trayUnread` from the `userAssets/` folder of its config. This script fills it for you.
 
-## Utilisation
+<p align="center"><img src="docs/vesktop-tray.png" width="640" alt="tray and trayUnread"><br><sub>generated icons: normal, and with a red dot for unread messages</sub></p>
+
+## What it does
+
+1. finds the Vesktop launcher you edited in `~/.local/share/applications`;
+2. resolves the icon name to an actual file, following your KDE icon theme and its `Inherits=` chain;
+3. generates two 256×256 PNGs (normal + red unread dot);
+4. copies them to `~/.config/vesktop/userAssets/` (and the Flatpak folder if present);
+5. restarts Vesktop.
+
+## Use it
 
 ```bash
-python3 vesktop-tray-icon.py
+curl -fsSL https://raw.githubusercontent.com/glime32/vesktop-tray-icon/main/vesktop-tray-icon.py | python3
 ```
 
-Il faut `rsvg-convert` (paquet `librsvg`) pour les icônes SVG, ou ImageMagick à défaut.
+Needs `rsvg-convert` (`librsvg`) for SVG icons, or ImageMagick. Run it again whenever you change the icon.
 
-Si tu changes encore l'icône dans KDE, relance simplement le script.
+<p align="center"><img src="docs/vesktop-run.png" width="760" alt="run"></p>
 
-Pour revenir à l'icône d'origine : Paramètres de Vesktop → *Customize App Assets* → *Reset to default* sur Tray et Tray Unread.
-
-## Remarque
-
-Vesktop redémarre à la fin : si tu es en vocal, ça coupe quelques secondes.
+To go back to the original icon: Vesktop settings → *Customize App Assets* → *Reset to default*.
