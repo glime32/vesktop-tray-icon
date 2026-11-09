@@ -215,7 +215,7 @@ asars = []
 for root in ("/usr/lib/vesktop", "/usr/share/vesktop", "/opt/Vesktop", "/opt/vesktop",
              "/var/lib/flatpak/app/dev.vencord.Vesktop/current",
              os.path.join(DATA, "flatpak/app/dev.vencord.Vesktop/current")):
-    for dp, dn, fn in os.walk(root, followlinks=True):
+    for dp, _, fn in os.walk(root, followlinks=True):
         if "app.asar" in fn:
             asars.append(os.path.join(dp, "app.asar"))
 if asars and not any(b"userAssets" in open(a, "rb").read() for a in asars):
